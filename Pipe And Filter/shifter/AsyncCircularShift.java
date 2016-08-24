@@ -1,5 +1,6 @@
 package shifter;
 import java.io.NotActiveException;
+import java.util.List;
 
 public class AsyncCircularShift extends CircularShift implements IAsyncCircularShift{
 
@@ -7,6 +8,10 @@ public class AsyncCircularShift extends CircularShift implements IAsyncCircularS
 		super(rightshift);
 	}
 
+	public AsyncCircularShift(List<String> noiseWordsList, IRightShift rightshift) {
+		super(noiseWordsList,rightshift);
+	}
+	
 	
 	@Override
 	public void run() {

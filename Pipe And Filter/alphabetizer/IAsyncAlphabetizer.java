@@ -2,6 +2,6 @@ package alphabetizer;
 
 import pipeAndFilter.IAsyncFilter;
 
-public interface IAsyncAlphabetizer extends IAsyncFilter<Iterable<String>, Iterable<String>>{
+public interface IAsyncAlphabetizer extends IAlphabetizer, IAsyncFilter<String, String>{
 
 }

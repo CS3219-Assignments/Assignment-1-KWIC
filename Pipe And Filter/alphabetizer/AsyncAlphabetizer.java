@@ -1,33 +1,29 @@
 package alphabetizer;
 
 import java.io.NotActiveException;
-import java.util.ArrayList;
+import java.util.List;
 
 public class AsyncAlphabetizer extends Alphabetizer implements IAsyncAlphabetizer{
 
+	public AsyncAlphabetizer(List<String> noiseWordsList) {
+		super(noiseWordsList);
+	}
+
 	@Override
 	public void run() {
-		Iterable<String> data = null;
-
+		String data = null;
+		String output = null;
+		
 		while(true){
 			try {
 				data = getDataFromInputPipe();
-				
-				for(String line : data)
-					sortedList.add(line);
-				
+				output = alphabetize(data);
+				sendDataToOutputPipe(output);
 			} catch (NotActiveException e) {
-				ArrayList<String> sortedOutput = new ArrayList<String>();
-				
-				while(!sortedList.isEmpty()){
-				 sortedOutput.add(sortedList.pollFirst());
-				}
-				sendDataToOutputPipe(sortedOutput);
 				closeOutputPipes();
 				return;
 			}
 		}
-		
 	}
 
 }

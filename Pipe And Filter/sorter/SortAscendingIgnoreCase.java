@@ -1,4 +1,4 @@
-package alphabetizer;
+package sorter;
 
 import java.util.Comparator;
 

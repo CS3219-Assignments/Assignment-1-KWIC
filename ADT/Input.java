@@ -6,7 +6,7 @@ public class Input{
 	* Get the list of input
 	* @Return  An arraylist of the input
 	*/
-	public static ArrayList<String> getInputList(){
+	public ArrayList<String> getInputList(){
 		String inputFilename;
 		ArrayList<String> inputList = new ArrayList<String>();
 		Scanner sc = new Scanner(System.in);
@@ -24,7 +24,7 @@ public class Input{
 	* Get the list of ignore words
 	* @Return  An arraylist of the ignore words
 	*/
-	public static ArrayList<String> getIgnoreList(){
+	public ArrayList<String> getIgnoreList(){
 		String ignoreWordsFilename;
 		String decision;
 		boolean isExist = false;

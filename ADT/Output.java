@@ -5,7 +5,7 @@ public class Output{
 	/**
 	* Print the output results
 	*/
-	public static void printResults(ArrayList<String> resultsList){
+	public void printResults(ArrayList<String> resultsList){
 		for(String newSentence : resultsList){
 			System.out.println(newSentence);
 		}
@@ -14,7 +14,7 @@ public class Output{
 	/**
 	* Save the output results in "output.txt"
 	*/
-	public static void saveFile(ArrayList<String> outputList){
+	public void saveFile(ArrayList<String> outputList){
 		try {
 			File file = new File("output.txt");
 

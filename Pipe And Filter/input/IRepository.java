@@ -2,7 +2,9 @@ package input;
 
 import java.util.List;
 
-public interface IRepository<T> {
+import pipeAndFilter.IFilter;
+
+public interface IRepository<T> extends IFilter<T,T>{
 
 	void add(T entity);
 	void remove(T entity);

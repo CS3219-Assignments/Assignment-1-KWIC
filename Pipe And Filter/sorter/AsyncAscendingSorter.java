@@ -1,7 +1,6 @@
 package sorter;
 
 import java.io.NotActiveException;
-import java.util.ArrayList;
 
 public class AsyncAscendingSorter extends AscendingSorter implements IAsyncSorter{
 
@@ -12,17 +11,16 @@ public class AsyncAscendingSorter extends AscendingSorter implements IAsyncSorte
 		while(true){
 			try {
 				data = getDataFromInputPipe();
+				if(data == null)
+					continue;
 				
 				for(String line : data)
-					sortedList.add(line);
+					//sortedList.add(line);
+					toBeSorted.add(line);
 				
 			} catch (NotActiveException e) {
-				ArrayList<String> sortedOutput = new ArrayList<String>();
 				
-				while(!sortedList.isEmpty()){
-				 sortedOutput.add(sortedList.pollFirst());
-				}
-				sendDataToOutputPipe(sortedOutput);
+				sendDataToOutputPipe(sortAscending(toBeSorted));
 				closeOutputPipes();
 				return;
 			}

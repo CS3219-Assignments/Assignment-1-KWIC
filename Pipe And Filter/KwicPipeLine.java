@@ -1,7 +1,9 @@
 import java.util.ArrayList;
+import java.util.List;
 
 import alphabetizer.AsyncAlphabetizer;
 import input.AsyncRepository;
+import input.FileRepository;
 import output.AsyncOutput;
 import pipeAndFilter.IAsyncFilter;
 import shifter.AsyncCircularShift;
@@ -19,10 +21,9 @@ public class KwicPipeLine {
 	
 	private Thread repositoryThread, alphabetizerThread, circularThread, sortingThread, outputThread;
 	
-	public KwicPipeLine(String filePath){
+	public KwicPipeLine(String filePath, String noiseFilePath){
 		
-		ArrayList<String> noise = new ArrayList<String>();
-		noise.add("Test");
+		List<String> noise = initNoise(noiseFilePath);
 		
 		outputFilter = new AsyncOutput();
 		sortingFilter = new AsyncAscendingSorter();
@@ -51,4 +52,9 @@ public class KwicPipeLine {
 		repositoryThread.start();
 	}
 	
+	private List<String> initNoise(String noiseFilePath){
+		FileRepository fileRepo = new FileRepository(noiseFilePath);
+		fileRepo.initFileReader(noiseFilePath);
+		return fileRepo.getAll();
+	}
 }

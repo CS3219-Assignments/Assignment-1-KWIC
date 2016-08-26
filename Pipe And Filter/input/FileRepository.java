@@ -1,6 +1,7 @@
 package input;
 
 import java.io.File;
+import java.util.List;
 
 import pipeAndFilter.Filter;
 
@@ -111,6 +112,11 @@ public class FileRepository extends Filter<String, String> implements IFileRepos
 			
 			
 		return -1;
+	}
+
+	@Override
+	public List<String> getAll() {
+		return reader.readAll();
 	}
 	
 }

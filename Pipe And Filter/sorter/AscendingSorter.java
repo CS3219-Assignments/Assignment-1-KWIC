@@ -1,16 +1,22 @@
 package sorter;
 
-import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import pipeAndFilter.*;
 
-public class AscendingSorter extends Filter<Iterable<String>, Iterable<String>> {
+public class AscendingSorter extends Filter<Iterable<String>, Iterable<String>> implements IAscendingSorter{
 	
-	protected ConcurrentSkipListSet<String> sortedList;
-
+	protected Set<String> toBeSorted;
 	
 	public AscendingSorter() {
-		sortedList = new ConcurrentSkipListSet<String>(new SortAscendingIgnoreCase());
+		toBeSorted = new HashSet<String>();
+	}
+	
+	@Override
+	public Iterable<String> sortAscending(Iterable<String> unsortedList) {
+		return toBeSorted.stream().sorted(new SortAscendingIgnoreCase()).collect(Collectors.toList());
 	}
 	
 }

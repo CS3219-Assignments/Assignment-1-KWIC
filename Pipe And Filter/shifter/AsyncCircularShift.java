@@ -21,10 +21,14 @@ public class AsyncCircularShift extends CircularShift implements IAsyncCircularS
 		while(true){
 			try {
 				data = getDataFromInputPipe();
+				if(data == null)
+					return;
+				
+				
 				circularShiftedLines = shift(data);
 				sendDataToOutputPipe(circularShiftedLines);
 			} catch (NotActiveException e) {
-				closeOutputPipes();
+					closeOutputPipes();	
 				return;
 			}
 		}

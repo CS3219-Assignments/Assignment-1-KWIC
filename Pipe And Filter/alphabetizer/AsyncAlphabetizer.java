@@ -17,11 +17,34 @@ public class AsyncAlphabetizer extends Alphabetizer implements IAsyncAlphabetize
 		while(true){
 			try {
 				data = getDataFromInputPipe();
+				
+				if(data == null)
+					continue;
+				
 				output = alphabetize(data);
 				sendDataToOutputPipe(output);
 			} catch (NotActiveException e) {
 				closeOutputPipes();
 				return;
+				
+				/*
+				while(true){
+					if(isOutputPipeEmpty()){
+						closeOutputPipes();
+						break;
+					}
+						
+					else{
+						try {
+							Thread.sleep(500);
+						} catch (InterruptedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				}
+				return;
+				*/
 			}
 		}
 	}

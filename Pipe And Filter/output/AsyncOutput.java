@@ -14,7 +14,7 @@ public class AsyncOutput extends Output implements IAsyncOutput{
 				for(String line : data)
 					System.out.println(line);
 			} catch (NotActiveException e) {
-				closeOutputPipes();
+				closeOutputPipes();	
 				return;
 			}
 		}

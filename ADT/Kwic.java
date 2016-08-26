@@ -18,6 +18,7 @@ public class Kwic{
 		
 		Output out = new Output();
 		out.printResults(sortedList);
+		out.saveFile(sortedList);
 	}
 
 

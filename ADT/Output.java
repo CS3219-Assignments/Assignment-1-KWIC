@@ -10,4 +10,30 @@ public class Output{
 			System.out.println(newSentence);
 		}
 	}
+
+	/**
+	* Save the output results in "output.txt"
+	*/
+	public static void saveFile(ArrayList<String> outputList){
+		try {
+			File file = new File("output.txt");
+
+			// if file doesnt exists, then create it
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+
+			FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+
+			for (String output : outputList){
+				bw.write(output);
+				bw.newLine();
+			}
+			bw.close();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 }

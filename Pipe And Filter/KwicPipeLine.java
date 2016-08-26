@@ -32,12 +32,14 @@ public class KwicPipeLine {
 		alphabetizerFilter = new AsyncAlphabetizer(noise);
 		repositoryFilter = new AsyncRepository(filePath);
 
-		//Co
+		//Connect pipes
 		sortingFilter.connectOutputPipeTo(outputFilter.getInputPipe());
 		circularFilter.connectOutputPipeTo(sortingFilter.getInputPipe());
 		alphabetizerFilter.connectOutputPipeTo(circularFilter.getInputPipe());
 		repositoryFilter.connectOutputPipeTo(alphabetizerFilter.getInputPipe());
 		
+		//create threads
+		threadPool = new ArrayList<Thread>();
 		threadPool.add(new Thread(outputFilter));
 		threadPool.add(new Thread(sortingFilter));
 		threadPool.add(new Thread(circularFilter));
@@ -46,6 +48,7 @@ public class KwicPipeLine {
 		
 	}
 	
+	//start threads
 	public void start(){
 		for(Thread thread : threadPool)
 			thread.start();

@@ -22,15 +22,17 @@ public class KwicPipeLine {
 	private ArrayList<Thread> threadPool;
 	
 	public KwicPipeLine(String filePath, String noiseFilePath){
-		
+		//Get noise words
 		List<String> noise = initNoise(noiseFilePath);
 		
+		//Create required AsyncFilters
 		outputFilter = new AsyncOutput();
 		sortingFilter = new AsyncAscendingSorter();
 		circularFilter = new AsyncCircularShift(noise, new RightShift());
 		alphabetizerFilter = new AsyncAlphabetizer(noise);
 		repositoryFilter = new AsyncRepository(filePath);
-		
+
+		//Co
 		sortingFilter.connectOutputPipeTo(outputFilter.getInputPipe());
 		circularFilter.connectOutputPipeTo(sortingFilter.getInputPipe());
 		alphabetizerFilter.connectOutputPipeTo(circularFilter.getInputPipe());

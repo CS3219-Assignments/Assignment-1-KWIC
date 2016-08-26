@@ -19,7 +19,7 @@ public class KwicPipeLine {
 	private IAsyncFilter<Iterable<String>, Iterable<String>> sortingFilter;
 	private IAsyncFilter<Iterable<String>, String> outputFilter;
 	
-	private Thread repositoryThread, alphabetizerThread, circularThread, sortingThread, outputThread;
+	private ArrayList<Thread> threadPool;
 	
 	public KwicPipeLine(String filePath, String noiseFilePath){
 		
@@ -36,20 +36,17 @@ public class KwicPipeLine {
 		alphabetizerFilter.connectOutputPipeTo(circularFilter.getInputPipe());
 		repositoryFilter.connectOutputPipeTo(alphabetizerFilter.getInputPipe());
 		
-		outputThread = new Thread(outputFilter);
-		sortingThread = new Thread(sortingFilter);
-		circularThread = new Thread(circularFilter);
-		alphabetizerThread = new Thread(alphabetizerFilter);
-		repositoryThread = new Thread(repositoryFilter);
+		threadPool.add(new Thread(outputFilter));
+		threadPool.add(new Thread(sortingFilter));
+		threadPool.add(new Thread(circularFilter));
+		threadPool.add(new Thread(alphabetizerFilter));
+		threadPool.add(new Thread(repositoryFilter));
+		
 	}
 	
 	public void start(){
-		
-		outputThread.start();
-		sortingThread.start();
-		circularThread.start();
-		alphabetizerThread.start();		
-		repositoryThread.start();
+		for(Thread thread : threadPool)
+			thread.start();
 	}
 	
 	private List<String> initNoise(String noiseFilePath){

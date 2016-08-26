@@ -1,9 +1,11 @@
 import java.util.Scanner;
+import java.io.File;
 import java.nio.file.*;
+import java.text.DecimalFormat;
 
 public class Kwic {
 
-	private static final String PROMPT_TITLE = "Enter titles file path: ";
+	private static final String PROMPT_TITLE = "Input File: ";
 	private static final String PROMPT_NOISE = "Enter noise file path: ";
 	private static Scanner sc = new Scanner(System.in);
 	
@@ -11,13 +13,33 @@ public class Kwic {
 		
 		String inputFilePath, noiseFilePath;
 		
-		prompt(PROMPT_TITLE);
-		inputFilePath = getIntputPath();
-		//inputFilePath = "C:\\Users\\User\\Desktop\\input3.txt";
+		do{
+			prompt(PROMPT_TITLE);
+			inputFilePath = getInputPath();
+			
+			if(!fileExists(inputFilePath)){
+				System.out.println(inputFilePath + " does not exists.");
+				continue;
+			}
+			
+		}while(getFileSize(inputFilePath) ==0);
 		
-		prompt(PROMPT_NOISE);
-		noiseFilePath = getIntputPath();
-		//noiseFilePath = "C:\\Users\\User\\Desktop\\bb.txt";
+		String decision = "N";
+		do{
+			prompt(PROMPT_NOISE);
+			noiseFilePath = getInputPath();
+			
+			if(!fileExists(noiseFilePath)){
+				System.out.println(noiseFilePath + " does not exists.\nEnter [Y/y] to specify another noise file path. [N/n] to continue.");
+				decision = getInput();
+				noiseFilePath = null;
+			}
+			else
+				break;
+			
+		}while(decision.toUpperCase().equals("Y"));
+		
+		
 		new KwicPipeLine(inputFilePath, noiseFilePath).start();
 		
 		
@@ -28,14 +50,20 @@ public class Kwic {
 	}
 	
 	
-	private static String getIntputPath(){
-		
-		String line = sc.nextLine();
-		
-		if(!line.contains("\\"))
-			line = Paths.get("").toAbsolutePath().toString() + "\\" + line;
-		
-		return line;
-		
+	private static String getInput(){
+		return sc.nextLine();
+	}
+	
+	private static String getInputPath(){
+		String line = getInput();	
+		return !line.contains("\\") ? Paths.get("").toAbsolutePath().toString() + "\\" + line : line;
+	}
+	
+	private static long getFileSize(String path){
+		return new File(path).length();
+	}
+	
+	private static boolean fileExists(String path){
+		return new File(path).exists();
 	}
 }

@@ -92,8 +92,6 @@ public class FileRepository extends Filter<String, String> implements IFileRepos
 	}
 
 
-	
-
 	@Override
 	public int find(String entity) {
 		if(reader != null)
@@ -118,5 +116,7 @@ public class FileRepository extends Filter<String, String> implements IFileRepos
 	public List<String> getAll() {
 		return reader.readAll();
 	}
+
+	
 	
 }

@@ -55,6 +55,9 @@ public class KwicPipeLine {
 	}
 	
 	private List<String> initNoise(String noiseFilePath){
+		if(noiseFilePath == null)
+			return new ArrayList<String>();
+		
 		FileRepository fileRepo = new FileRepository(noiseFilePath);
 		fileRepo.initFileReader(noiseFilePath);
 		return fileRepo.getAll();

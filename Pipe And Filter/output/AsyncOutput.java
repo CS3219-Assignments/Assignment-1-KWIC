@@ -11,8 +11,11 @@ public class AsyncOutput extends Output implements IAsyncOutput{
 		while(true){
 			try {
 				data = getDataFromInputPipe();
-				for(String line : data)
+				for(String line : data){
 					System.out.println(line);
+					sendDataToOutputPipe(line);
+				}
+					
 			} catch (NotActiveException e) {
 				closeOutputPipes();	
 				return;

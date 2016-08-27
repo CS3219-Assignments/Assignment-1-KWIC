@@ -26,11 +26,9 @@ public class FileRepository extends Filter<String, String> implements IFileRepos
 	
 	@Override
 	public void add(String text) {
-		initFileWriter(filePath);
 		
-		if(writer.exists()){
-			writer.write(text);
-			closeFileWriter();
+		if(writer.fileExists()){
+			writer.writeLine(text);
 		}
 		
 	}
@@ -50,7 +48,7 @@ public class FileRepository extends Filter<String, String> implements IFileRepos
 			
 			while(lineRead != null){
 				if(currentIndex != index){
-					writer.write(lineRead);
+					writer.writeLine(lineRead);
 				}
 			}
 			closeFileReader();
@@ -77,7 +75,11 @@ public class FileRepository extends Filter<String, String> implements IFileRepos
 		writer = new FileWriter(filePath);
 		
 	}
-	
+
+	@Override
+	public void initFileWriter(String filePath, boolean isAppend) {
+		writer = new FileWriter(filePath, isAppend);
+	}
 
 	@Override
 	public void closeFileReader() {
@@ -116,6 +118,8 @@ public class FileRepository extends Filter<String, String> implements IFileRepos
 	public List<String> getAll() {
 		return reader.readAll();
 	}
+
+	
 
 	
 	

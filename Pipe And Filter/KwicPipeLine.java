@@ -1,9 +1,11 @@
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import alphabetizer.AsyncAlphabetizer;
 import input.AsyncRepository;
 import input.FileRepository;
+import output.AOut;
 import output.AsyncOutput;
 import pipeAndFilter.IAsyncFilter;
 import shifter.AsyncCircularShift;
@@ -18,6 +20,7 @@ public class KwicPipeLine {
 	private IAsyncFilter<String, Iterable<String>> circularFilter;
 	private IAsyncFilter<Iterable<String>, Iterable<String>> sortingFilter;
 	private IAsyncFilter<Iterable<String>, String> outputFilter;
+	private IAsyncFilter<String, String> writeOutputFilter;
 	
 	private ArrayList<Thread> threadPool;
 	
@@ -26,6 +29,7 @@ public class KwicPipeLine {
 		List<String> noise = initNoise(noiseFilePath);
 		
 		//Create required AsyncFilters
+		writeOutputFilter = new AOut(Paths.get("").toAbsolutePath().toString() +  "\\output.txt");
 		outputFilter = new AsyncOutput();
 		sortingFilter = new AsyncAscendingSorter();
 		circularFilter = new AsyncCircularShift(noise, new RightShift());
@@ -33,6 +37,7 @@ public class KwicPipeLine {
 		repositoryFilter = new AsyncRepository(filePath);
 
 		//Connect pipes
+		outputFilter.connectOutputPipeTo(writeOutputFilter.getInputPipe());
 		sortingFilter.connectOutputPipeTo(outputFilter.getInputPipe());
 		circularFilter.connectOutputPipeTo(sortingFilter.getInputPipe());
 		alphabetizerFilter.connectOutputPipeTo(circularFilter.getInputPipe());
@@ -40,6 +45,7 @@ public class KwicPipeLine {
 		
 		//create threads
 		threadPool = new ArrayList<Thread>();
+		threadPool.add(new Thread(writeOutputFilter));
 		threadPool.add(new Thread(outputFilter));
 		threadPool.add(new Thread(sortingFilter));
 		threadPool.add(new Thread(circularFilter));

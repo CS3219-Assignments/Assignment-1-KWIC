@@ -23,22 +23,7 @@ public class AsyncRepository extends FileRepository implements IAsyncRepository{
 			
 			closeFileReader();
 			closeOutputPipes();
-			
-			/*while(true){
-				if(isOutputPipeEmpty()){
-					closeOutputPipes();
-					break;
-				}
-					
-				else{
-					try {
-						Thread.sleep(500);
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-			}*/
+						
 			return;
 		}
 	}

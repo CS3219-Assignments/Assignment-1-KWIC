@@ -8,7 +8,8 @@ public abstract class Filter<I,O> implements IFilter<I,O>{
 
 	private  IPipe<I> inputPipe;
 	private  ArrayList<IPipe<O>> outputPipeList;
-	
+	private int outputPipeNumber;
+
 	public Filter(){
 		inputPipe = new Pipe<I>();
 		outputPipeList = new ArrayList<IPipe<O>>();
@@ -24,8 +25,19 @@ public abstract class Filter<I,O> implements IFilter<I,O>{
 	
 	@Override
 	public void sendDataToOutputPipe(O data){ 
-		for(IPipe<O> outputPipe : outputPipeList)
-			outputPipe.putData(data);
+		sendDataToOutputPipe(data, false);
+	}
+	
+	@Override
+	public void sendDataToOutputPipe(O data, boolean isBroadcast){ 
+		if(isBroadcast){
+			for(IPipe<O> outputPipe : outputPipeList)
+				outputPipe.putData(data);	
+		}
+		else{
+			outputPipeList.get(outputPipeNumber).putData(data);
+			outputPipeNumber = nextOutputPipeNumber(outputPipeNumber);
+		}
 	}
 	
 	@Override
@@ -56,5 +68,8 @@ public abstract class Filter<I,O> implements IFilter<I,O>{
 		return inputPipe;
 	}
 	
+	private int nextOutputPipeNumber(int currentNumber){
+		return (currentNumber+1)% outputPipeList.size();
+	}
 	
 }

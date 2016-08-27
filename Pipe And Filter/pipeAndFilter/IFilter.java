@@ -8,6 +8,8 @@ public interface IFilter<I,O> {
 	
 	public void sendDataToOutputPipe(O data);
 	
+	public void sendDataToOutputPipe(O data, boolean isBroadcast);
+	
 	public I getDataFromInputPipe() throws NotActiveException;
 	
 	public boolean isInputPipeEmpty();

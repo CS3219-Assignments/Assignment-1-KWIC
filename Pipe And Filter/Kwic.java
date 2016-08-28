@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.io.File;
 import java.nio.file.*;
-import java.text.DecimalFormat;
 
 public class Kwic {
 
@@ -13,6 +12,7 @@ public class Kwic {
 		
 		String inputFilePath, noiseFilePath;
 		
+		/* Get input file path */
 		do{
 			prompt(PROMPT_TITLE);
 			inputFilePath = getInputPath();
@@ -25,6 +25,8 @@ public class Kwic {
 		}while(getFileSize(inputFilePath) ==0);
 		
 		String decision = "N";
+		
+		/* get output file path */
 		do{
 			prompt(PROMPT_NOISE);
 			noiseFilePath = getInputPath();
@@ -40,6 +42,7 @@ public class Kwic {
 		}while(decision.toUpperCase().equals("Y"));
 		
 		
+		/* Start Pipeline */
 		new KwicPipeLine(inputFilePath, noiseFilePath).start();
 		
 		

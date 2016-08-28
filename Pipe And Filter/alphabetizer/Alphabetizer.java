@@ -21,6 +21,10 @@ public class Alphabetizer extends Filter<String, String> implements IAlphabetize
 			noiseWords.add(str.toLowerCase());
 	}
 	
+	/*
+	 * Keywords have thier first letter alphabetized.
+	 * Noisewords become lowercased
+	 */
 	@Override
 	public String alphabetize(String line) {
 		String[] words = line.split(DELIMITER);

@@ -1,4 +1,4 @@
-package output;
+package outputconsole;
 
 import pipeAndFilter.IFilter;
 

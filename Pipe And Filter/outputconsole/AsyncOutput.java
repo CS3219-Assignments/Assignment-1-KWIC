@@ -1,4 +1,4 @@
-package output;
+package outputconsole;
 
 import java.io.NotActiveException;
 

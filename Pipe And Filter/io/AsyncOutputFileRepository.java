@@ -1,12 +1,12 @@
-package output;
+package io;
 
 import java.io.NotActiveException;
-import input.FileRepository;
-import input.IAsyncRepository;
+import io.FileRepository;
+import io.IAsyncRepository;
 
-public class AOut extends FileRepository implements IAsyncRepository{
+public class AsyncOutputFileRepository extends FileRepository implements IAsyncRepository{
 
-	public AOut(String filePath) {
+	public AsyncOutputFileRepository(String filePath) {
 		super(filePath);
 	}
 

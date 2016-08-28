@@ -1,4 +1,4 @@
-package input;
+package io;
 
 import java.util.*;
 import java.io.*;
@@ -59,4 +59,5 @@ public class FileReader {
 				e.printStackTrace();
 			}
 	}
+
 }

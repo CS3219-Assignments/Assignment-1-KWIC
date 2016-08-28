@@ -1,9 +1,9 @@
-package input;
+package io;
 
 
-public class AsyncRepository extends FileRepository implements IAsyncRepository{
+public class AsyncInputFileRepository extends FileRepository implements IAsyncRepository{
 
-	public AsyncRepository(String filePath) {
+	public AsyncInputFileRepository(String filePath) {
 		super(filePath);
 	}
 	

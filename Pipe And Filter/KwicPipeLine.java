@@ -1,12 +1,12 @@
+
+import alphabetizer.AsyncAlphabetizer;
+import io.AsyncInputFileRepository;
+import io.FileRepository;
+import io.AsyncOutputFileRepository;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import alphabetizer.AsyncAlphabetizer;
-import input.AsyncRepository;
-import input.FileRepository;
-import output.AOut;
-import output.AsyncOutput;
+import outputconsole.AsyncOutput;
 import pipeAndFilter.IAsyncFilter;
 import shifter.AsyncCircularShift;
 import shifter.RightShift;
@@ -19,44 +19,44 @@ public class KwicPipeLine {
 	private IAsyncFilter<String, String> alphabetizerFilter;
 	private IAsyncFilter<String, Iterable<String>> circularFilter;
 	private IAsyncFilter<Iterable<String>, Iterable<String>> sortingFilter;
-	private IAsyncFilter<Iterable<String>, String> outputFilter;
-	private IAsyncFilter<String, String> writeOutputFilter;
+	private IAsyncFilter<Iterable<String>, String> outputConsoleFilter;
+	private IAsyncFilter<String, String> outputFileFilter;
 	
-	private ArrayList<Thread> threadPool;
+	private ArrayList<Thread> threadList;
 	
 	public KwicPipeLine(String filePath, String noiseFilePath){
 		//Get noise words
 		List<String> noise = initNoise(noiseFilePath);
 		
 		//Create required AsyncFilters
-		writeOutputFilter = new AOut(Paths.get("").toAbsolutePath().toString() +  "\\output.txt");
-		outputFilter = new AsyncOutput();
+		outputFileFilter = new AsyncOutputFileRepository(Paths.get("").toAbsolutePath().toString() +  "\\output.txt");
+		outputConsoleFilter = new AsyncOutput();
 		sortingFilter = new AsyncAscendingSorter();
 		circularFilter = new AsyncCircularShift(noise, new RightShift());
 		alphabetizerFilter = new AsyncAlphabetizer(noise);
-		repositoryFilter = new AsyncRepository(filePath);
+		repositoryFilter = new AsyncInputFileRepository(filePath);
 
 		//Connect pipes
-		outputFilter.connectOutputPipeTo(writeOutputFilter.getInputPipe());
-		sortingFilter.connectOutputPipeTo(outputFilter.getInputPipe());
+		outputConsoleFilter.connectOutputPipeTo(outputFileFilter.getInputPipe());
+		sortingFilter.connectOutputPipeTo(outputConsoleFilter.getInputPipe());
 		circularFilter.connectOutputPipeTo(sortingFilter.getInputPipe());
 		alphabetizerFilter.connectOutputPipeTo(circularFilter.getInputPipe());
 		repositoryFilter.connectOutputPipeTo(alphabetizerFilter.getInputPipe());
 		
 		//create threads
-		threadPool = new ArrayList<Thread>();
-		threadPool.add(new Thread(writeOutputFilter));
-		threadPool.add(new Thread(outputFilter));
-		threadPool.add(new Thread(sortingFilter));
-		threadPool.add(new Thread(circularFilter));
-		threadPool.add(new Thread(alphabetizerFilter));
-		threadPool.add(new Thread(repositoryFilter));
+		threadList = new ArrayList<Thread>();
+		threadList.add(new Thread(outputFileFilter));
+		threadList.add(new Thread(outputConsoleFilter));
+		threadList.add(new Thread(sortingFilter));
+		threadList.add(new Thread(circularFilter));
+		threadList.add(new Thread(alphabetizerFilter));
+		threadList.add(new Thread(repositoryFilter));
 		
 	}
 	
 	//start threads
 	public void start(){
-		for(Thread thread : threadPool)
+		for(Thread thread : threadList)
 			thread.start();
 	}
 	

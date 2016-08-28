@@ -6,6 +6,9 @@ public class Output{
 	* Print the output results
 	*/
 	public void printResults(ArrayList<String> resultsList){
+
+		resultsList = new ArrayList<String>(new LinkedHashSet<String>(resultsList));
+
 		for(String newSentence : resultsList){
 			System.out.println(newSentence);
 		}
@@ -25,6 +28,9 @@ public class Output{
 
 			FileWriter fw = new FileWriter(file.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
+
+
+			outputList = new ArrayList<String>(new LinkedHashSet<String>(outputList));
 
 			for (String output : outputList){
 				bw.write(output);

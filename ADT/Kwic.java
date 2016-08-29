@@ -6,7 +6,7 @@ public class Kwic{
 
 	public static void main(String args[]){
 		
-		new Kwic(new Input(), new CircularShift(), new AlphaShift(), new Output());
+		new Kwic(new Input(), new CircularShift(), new AlphaShift(), new Output()).run();
 	}
 
 	private IInput in;

@@ -3,10 +3,10 @@ import java.io.*;
 
 public class Kwic{
 
-	private static IInput in;
-	private static ICircularShift cs;
-	private static IAlphaShift as;
-	private static IOutput out;
+	private IInput in;
+	private ICircularShift cs;
+	private IAlphaShift as;
+	private IOutput out;
 
 
 	public Kwic(IInput in, ICircularShift cs, IAlphaShift as, IOutput out){

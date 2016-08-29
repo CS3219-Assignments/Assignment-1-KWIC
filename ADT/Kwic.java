@@ -9,16 +9,6 @@ public class Kwic{
 	private static IOutput out;
 
 
-	public static void main(String args[]){
-		
-		new Kwic(new Input(), new CircularShift(), new AlphaShift(), new Output()).run();
-	}
-
-	private IInput in;
-	private ICircularShift cs;
-	private IAlphaShift as;
-	private IOutput out;
-	
 	public Kwic(IInput in, ICircularShift cs, IAlphaShift as, IOutput out){
 		this.in = in;
 		this.cs = cs;
@@ -28,11 +18,11 @@ public class Kwic{
 
 	public static void main(String args[]){
 		
-		new Kwic(new Input(), new CircularShift(), new AlphaShift(), new Output());
-		run();
+		Kwic kwic = new Kwic(new Input(), new CircularShift(), new AlphaShift(), new Output());
+		kwic.run();
 	}
 
-	private static void run(){
+	private void run(){
 		ArrayList<String> inputList = in.getInputList();
 		ArrayList<String> ignoreList = in.getIgnoreList();
 		

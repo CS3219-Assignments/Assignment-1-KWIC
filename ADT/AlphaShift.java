@@ -10,7 +10,7 @@ public class AlphaShift implements IAlphaShift{
 	*/
 	@Override
 	public ArrayList<String> sortList(ArrayList<String> unsortedList){
-		Collections.sort(unsortedList);
+		Collections.sort(unsortedList, String.CASE_INSENSITIVE_ORDER);
 		ArrayList<String> sortedList = unsortedList;
 
 		return sortedList;
@@ -33,4 +33,5 @@ public class AlphaShift implements IAlphaShift{
 	public String lowerCaseWord(String word){
 		return word.toLowerCase();
 	}
+
 }

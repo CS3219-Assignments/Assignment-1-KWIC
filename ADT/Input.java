@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Input{
+public class Input implements IInput{
 	/**
 	* Get the list of input
 	* @Return  An arraylist of the input

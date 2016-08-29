@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Output{
+public class Output implements IOutput{
 	/**
 	* Print the output results
 	*/

@@ -1,11 +1,14 @@
 import java.util.*;
 import java.io.*;
 
-public class CircularShift{
+public class CircularShift implements ICircularShift{
+	
 	/**
 	* Get the ciruclar list
 	* @return the circular list of all inputs 
 	*/
+	
+	@Override
 	public ArrayList<String> getCircularList(ArrayList<String> inputList, ArrayList<String> ignoreList){
 
 		ArrayList<String> circularList = new ArrayList<String>();

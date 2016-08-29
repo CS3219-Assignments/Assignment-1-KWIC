@@ -7,6 +7,17 @@ public class Kwic{
 	private static ICircularShift cs;
 	private static IAlphaShift as;
 	private static IOutput out;
+
+
+	public static void main(String args[]){
+		
+		new Kwic(new Input(), new CircularShift(), new AlphaShift(), new Output()).run();
+	}
+
+	private IInput in;
+	private ICircularShift cs;
+	private IAlphaShift as;
+	private IOutput out;
 	
 	public Kwic(IInput in, ICircularShift cs, IAlphaShift as, IOutput out){
 		this.in = in;
